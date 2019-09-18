@@ -27,19 +27,20 @@ def login():
 
 @app.route('/test')
 def test():
-    return render_template('card.html')
+    cards = Navcard.query.all()
+    return render_template('card.html', cards=cards)
 
 # ---------------------------------------------------------------
 @app.cli.command()
 def generate():
     db.drop_all()
     db.create_all()
-    test_name = "https://shan333.cn"
+    test_name = "磨削和"
     test_url = "https://shan333.cn"
-    test_image = "https://shan333.cn"
-    click.echo("???")
-    navcard_new = Navcard(name = test_name, url = test_url, image = test_image)
-    db.session.add(navcard_new)
+    test_image = "China.jpg"
+    for _ in range(5):
+        navcard_new = Navcard(name = test_name, url = test_url, image = test_image)
+        db.session.add(navcard_new)
     db.session.commit()
     click.echo("数据生成完毕！")
 

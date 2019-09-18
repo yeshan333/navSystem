@@ -34,6 +34,7 @@
     </div>
 </div>
 {# 使用卡片渲染宏 #}
-{{ nav_card('China.jpg') }}
-{{ nav_card('China.jpg') }}
+{% for card in cards %}
+{{ nav_card(card.name, card.url, card.image) }}
+{% endfor %}
 {% endblock %}
