@@ -13,7 +13,7 @@ db = SQLAlchemy(app)
 # 主页
 @app.route('/')
 def index():
-    return render_template('index.html')
+    return render_template('frontend/index.html')
 
 # 关于我
 @app.route('/about')
@@ -25,10 +25,16 @@ def about():
 def login():
     pass
 
+@app.route('/admin')
+def admin():
+    return render_template('backend/main.html')
+
 @app.route('/test')
 def test():
     cards = Navcard.query.all()
-    return render_template('card.html', cards=cards)
+    return render_template('frontend/card.html', cards=cards)
+
+
 
 # ---------------------------------------------------------------
 @app.cli.command()
