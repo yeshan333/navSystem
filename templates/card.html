@@ -1,0 +1,39 @@
+{% extends 'index.html' %}
+{# 引入自定义宏 #}
+{% from 'macros.html' import nav_card %}
+
+{% block content %}
+<div class="col-md-4 col-sm-6">
+    <div class="cards">
+        <!-- ... 更多的 .col-md-4 来包含卡片 -->
+        <a class="card" href="###">
+            <img src="{{ url_for('static', filename='China.jpg') }}" alt="国旗">
+            <div class="card-heading"><strong>大美中国</strong></div>
+            <div class="card-content text-muted">最美中国梦</div>
+        </a>
+    </div>
+</div>
+<div class="col-md-4 col-sm-6">
+    <div class="cards">
+        <!-- ... 更多的 .col-md-4 来包含卡片 -->
+        <a class="card" href="###">
+            <img src="{{ url_for('static', filename='China.jpg') }}" alt="国旗">
+            <div class="card-heading"><strong>大美中国</strong></div>
+            <div class="card-content text-muted">最美中国梦</div>
+        </a>
+    </div>
+</div>
+<div class="col-md-4 col-sm-6">
+    <div class="cards">
+        <!-- ... 更多的 .col-md-4 来包含卡片 -->
+        <a class="card" href="###">
+            <img src="{{ url_for('static', filename='China.jpg') }}" alt="国旗">
+            <div class="card-heading"><strong>大美中国</strong></div>
+            <div class="card-content text-muted">最美中国梦</div>
+        </a>
+    </div>
+</div>
+{# 使用卡片渲染宏 #}
+{{ nav_card('China.jpg') }}
+{{ nav_card('China.jpg') }}
+{% endblock %}

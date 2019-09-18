@@ -1,0 +1,13 @@
+{# 渲染单张卡片 #}
+{% macro nav_card(img_name) %}
+<div class="col-md-4 col-sm-6">
+    <div class="cards">
+        <!-- ... 更多的 .col-md-4 来包含卡片 -->
+        <a class="card" href="##">
+            <img src="{{ url_for('static', filename=img_name) }}" alt="国旗">
+            <div class="card-heading"><strong>大美中国</strong></div>
+            <div class="card-content text-muted">最美中国梦</div>
+        </a>
+    </div>
+</div>
+{% endmacro %}
