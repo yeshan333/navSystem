@@ -5,8 +5,9 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-    <title>开始使用layui</title>
+    <title>管理员登录</title>
     <link rel="stylesheet" href="{{ url_for('static', filename='layui/css/layui.css') }} ">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/login.css') }} ">
     <script src="{{ url_for('static', filename='layui/layui.js') }} "></script>
     <script>
         //一般直接写在一个js文件中
@@ -21,55 +22,6 @@
             //form.render();
         });
     </script>
-    <style type="text/css">
-        body {
-            background: #021220;
-        }
-
-        .layui-input {
-            height: 45px;
-            width: 87%;
-            padding-left: 5px;
-            font-size: 16px;
-            display: inline-block;
-        }
-
-        .layui-btn {
-            height: 40px;
-            margin-bottom: 30px;
-        }
-
-        .captcha-input {
-            height: 45px;
-            padding-left: 5px;
-            font-size: 16px;
-        }
-
-        .layui-form {
-            width: 20%;
-            height: 20%;
-            margin: 0 auto;
-            margin-top: 10%;
-            padding: 15px 28px 0px;
-            background: #fff;
-        }
-
-        .layui-input-block {
-            margin-left: 0;
-        }
-
-        .layui-input-block a {
-            color: blue;
-            float: right;
-            line-height: 30px;
-            font-size: 14px;
-        }
-
-        h1 {
-            text-align: center;
-            color: #8e1d35;
-        }
-    </style>
 </head>
 
 <body>
@@ -81,7 +33,6 @@
             <div class="layui-input-block">
                 <input type="text" name="username" placeholder="请输入账号" autocomplete="off" class="layui-input"
                     autofocus="true" required>
-
             </div>
         </div>
         <div class="layui-form-item" style="text-align:center">
@@ -96,7 +47,6 @@
             </div>
         </div>
     </form>
-    <!-- {{ render_form(form, action=request.full_path) }} -->
 </body>
 
 </html>

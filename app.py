@@ -23,13 +23,28 @@ def index():
 def about():
     pass
 
-# 登录
-@app.route('/login')
-def login():
-    pass
+# ----------------------------------------------------------
+# 后台
 
-@app.route('/admin', methods=['GET', 'POST'])
+# 
+@app.route('/admin')
 def admin():
+    return render_template('backend/main.html')
+
+# 登录
+@app.route('/login', methods=['GET', 'POST'])
+def login():
+    return render_template('backend/login.html')
+
+# 测试
+@app.route('/test')
+def test():
+    cards = Navcard.query.all()
+    return render_template('frontend/card.html', cards=cards)
+
+@app.route('/card/new', methods=['GET', 'POST'])
+def new_card():
+    # 新增卡片表单逻辑
     form = NavcardForm()
     if form.validate_on_submit():
         name = form.name.data
@@ -38,18 +53,46 @@ def admin():
         navcard = Navcard(name=name, url=url, image=image)
         db.session.add(navcard)
         db.session.commit()
-        # flash('添加成功')
+        print("添加成功")
         return redirect(url_for('index'))
-    return render_template('backend/login.html', form=form)
+    return render_template('backend/new_card.html', form=form)
 
-@app.route('/test')
-def test():
+# 卡片管理
+@app.route('/card/manage')
+def manage_card():
     cards = Navcard.query.all()
-    return render_template('frontend/card.html', cards=cards)
+    return render_template('backend/manage_card.html', cards=cards)
 
+# 删除卡片
+@app.route('/card/<int:card_id>/delete', methods=['POST'])
+def delete_card(card_id):
+    card = Navcard.query.get_or_404(card_id)
+    db.session.delete(card)
+    db.session.commit()
+    return redirect(url_for('manage_card'))
 
+# 卡片编辑
+@app.route('/card/<int:card_id>/edit', methods=['POST', 'GET'])
+def edit_card(card_id):
+    form = NavcardForm()
+    # 获取卡片对应id
+    card = Navcard.query.get_or_404(card_id)
+    if form.validate_on_submit():
+        name = form.name.data
+        url = form.url.data
+        image = form.thumnail.data
+        navcard = Navcard(name=name, url=url, image=image)
+        db.session.add(navcard)
+        db.session.commit()
+        print("添加成功")
+        return redirect(url_for('manage_card'))
+    form.name.data = card.name
+    form.url.data = card.url
+    form.thumnail.data = card.image
+    return render_template('/backend/edit_card.html', form=form)
 
 # ---------------------------------------------------------------
+# 生成测试数据
 @app.cli.command()
 def generate():
     db.drop_all()

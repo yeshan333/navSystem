@@ -1,0 +1,31 @@
+{% extends 'backend/main.html' %}
+
+{% block content %}
+<form class="layui-form" method="post" action="{{url_for('new_card')}}">
+        {{ form.csrf_token() }}
+        <div class="layui-form-item">
+            <label class="layui-form-label">网站名</label>
+            <div class="layui-input-block">
+                {{ form.name(class='layui-input', placeholder="请输入网站名") }}
+            </div>
+        </div>
+        <div class="layui-form-item">
+            <label class="layui-form-label">网站缩略图</label>
+            <div class="layui-input-block">
+                {{ form.thumnail(class='layui-input', placeholder="请输入网站缩略图URL") }}
+            </div>
+        </div>
+        <div class="layui-form-item">
+            <label class="layui-form-label">网址</label>
+            <div class="layui-input-block">
+                {{ form.url(class='layui-input', placeholder="请输入网站URL") }}
+            </div>
+        </div>
+        <div class="layui-form-item">
+            <div class="layui-input-block">
+                {{ form.submit(class='layui-btn') }}
+                <button type="reset" class="layui-btn layui-btn-primary">reset</button>
+            </div>
+        </div>
+    </form>
+{% endblock %}

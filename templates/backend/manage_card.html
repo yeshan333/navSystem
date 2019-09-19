@@ -1,0 +1,35 @@
+{% extends 'backend/main.html' %}
+
+
+{% block content %}
+{% if cards %}
+<table class="layui-table">
+    <thead>
+        <tr>
+            <th>网站名</th>
+            <th>网站缩略图URL</th>
+            <th>网站URL</th>
+            <th>编辑</th>
+            <th>删除</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for card in cards %}
+        <tr>
+            <td>{{ card.name }}</td>
+            <td>{{ card.image }}</td>
+            <td>{{ card.url }}</td>
+            <td><a href="{{ url_for('edit_card', card_id=card.id, next=request.full_path ) }}" class="layui-btn">编辑</a></td>
+            <td><form method="post"
+                action="{{ url_for('delete_card', card_id=card.id, next=request.full_path) }}">
+                <!-- <input type="hidden" name="csrf_token" value=" csrf_token()" /> -->
+                <button type="submit" class="layui-btn layui-btn-danger" onclick="return confirm('Are you sure?');">删除
+                </button>
+            </form>
+            </td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+{% endif %}
+{% endblock %}
