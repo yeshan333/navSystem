@@ -1,51 +1,100 @@
 <!DOCTYPE html>
 <html>
+
 <head>
-<meta charset="utf-8">
-<title>jQuery网站后台常用左侧伸缩下拉菜单代码</title>
-
-<link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/backendnav.css') }}">
-<link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='fonts/backendfont.css') }}">
-
-<script type="text/javascript" src="{{ url_for('static', filename='js/oldjquery.js') }}"></script>
-<script type="text/javascript" src="{{ url_for('static', filename='js/backendnav.js') }}"></script>
-
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+	<title>开始使用layui</title>
+	<link rel="stylesheet" href="{{ url_for('static', filename='layui/css/layui.css') }} ">
 </head>
+
 <body>
 
-<div class="nav">
-	<ul>
-		<li class="nav-item">
-			<a href="javascript:;"><i class="my-icon nav-icon icon_1"></i><span>网站配置</span><i class="my-icon nav-more"></i></a>
-			<ul>
-				<li><a href="javascript:;"><span>网站设置</span></a></li>
-				<li><a href="javascript:;"><span>友情链接</span></a></li>
-				<li><a href="javascript:;"><span>分类管理</span></a></li>
-				<li><a href="javascript:;"><span>系统日志</span></a></li>
+	<div class="layui-layout layui-layout-admin">
+		<div class="layui-header">
+			<div class="layui-logo">layui 后台布局</div>
+			<!-- 头部区域（可配合layui已有的水平导航） -->
+			<ul class="layui-nav layui-layout-left">
+				<li class="layui-nav-item"><a href="">控制台</a></li>
+				<li class="layui-nav-item"><a href="">商品管理</a></li>
+				<li class="layui-nav-item"><a href="">用户</a></li>
+				<li class="layui-nav-item">
+					<a href="javascript:;">其它系统</a>
+					<dl class="layui-nav-child">
+						<dd><a href="">邮件管理</a></dd>
+						<dd><a href="">消息管理</a></dd>
+						<dd><a href="">授权管理</a></dd>
+					</dl>
+				</li>
 			</ul>
-		</li>
-		<li class="nav-item">
-			<a href="javascript:;"><i class="my-icon nav-icon icon_2"></i><span>文章管理</span><i class="my-icon nav-more"></i></a>
-			<ul>
-				<li><a href="javascript:;"><span>站内新闻</span></a></li>
-				<li><a href="javascript:;"><span>站内公告</span></a></li>
-				<li><a href="javascript:;"><span>登录日志</span></a></li>
+			<ul class="layui-nav layui-layout-right">
+				<li class="layui-nav-item">
+					<a href="javascript:;">
+						<img src="http://t.cn/RCzsdCq" class="layui-nav-img">
+						贤心
+					</a>
+					<dl class="layui-nav-child">
+						<dd><a href="">基本资料</a></dd>
+						<dd><a href="">安全设置</a></dd>
+					</dl>
+				</li>
+				<li class="layui-nav-item"><a href="">退了</a></li>
 			</ul>
-		</li>
-		<li class="nav-item">
-			<a href="javascript:;"><i class="my-icon nav-icon icon_3"></i><span>订单管理</span><i class="my-icon nav-more"></i></a>
-			<ul>
-				<li><a href="javascript:;"><span>订单列表</span></a></li>
-				<li><a href="javascript:;"><span>打个酱油</span></a></li>
-				<li><a href="javascript:;"><span>也打酱油</span></a></li>
-			</ul>
-		</li>
-	</ul>
-</div>
+		</div>
 
-<div style="text-align:center;margin:-650px 0; font:normal 14px/24px 'MicroSoft YaHei';">
-<p>适用浏览器：360、FireFox、Chrome、Safari、Opera、傲游、搜狗、世界之窗. 不支持IE8及以下浏览器。</p>
-<p>来源：<a href="http://www.lanrenzhijia.com/" target="_blank">懒人素材</a></p>
-</div>
+		<div class="layui-side layui-bg-black">
+			<div class="layui-side-scroll">
+				<!-- 左侧导航区域（可配合layui已有的垂直导航） -->
+				<ul class="layui-nav layui-nav-tree" lay-filter="test">
+					<li class="layui-nav-item layui-nav-itemed">
+						<a class="" href="javascript:;">所有商品</a>
+						<dl class="layui-nav-child">
+							<dd><a href="javascript:;">列表一</a></dd>
+							<dd><a href="javascript:;">列表二</a></dd>
+							<dd><a href="javascript:;">列表三</a></dd>
+							<dd><a href="">超链接</a></dd>
+						</dl>
+					</li>
+					<li class="layui-nav-item">
+						<a href="javascript:;">解决方案</a>
+						<dl class="layui-nav-child">
+							<dd><a href="javascript:;">列表一</a></dd>
+							<dd><a href="javascript:;">列表二</a></dd>
+							<dd><a href="">超链接</a></dd>
+						</dl>
+					</li>
+					<li class="layui-nav-item"><a href="">云市场</a></li>
+					<li class="layui-nav-item"><a href="">发布商品</a></li>
+				</ul>
+			</div>
+		</div>
+
+		<div class="layui-body">
+			<!-- 内容主体区域 -->
+			<div style="padding: 15px;">内容主体区域</div>
+		</div>
+
+		<div class="layui-footer">
+			<!-- 底部固定区域 -->
+			© layui.com - 底部固定区域
+		</div>
+	</div>
+
+
+	<script src="{{ url_for('static', filename='layui/layui.js') }} "></script>
+	<script>
+		//一般直接写在一个js文件中
+		layui.use(['layer', 'form', 'element'], function () {
+			var layer = layui.layer,
+				form = layui.form,
+				element = layui.element;
+
+			layer.msg('Hello World');
+			//但是，如果你的HTML是动态生成的，自动渲染就会失效
+			//因此你需要在相应的地方，执行下述方法来进行渲染
+			//form.render();
+		});
+	</script>
 </body>
+
 </html>
