@@ -1,4 +1,13 @@
 # -*- coding: utf-8 -*-
+"""
+Copyright (c) [2019] [name of copyright holder]
+   [navSystem] is licensed under the Mulan PSL v1.
+   @author: ShanSan
+   @email: yeshan1329441308@gmail.com
+   @License: See the Mulan PSL v1 for more details.
+"""
+
+
 from flask import Flask, render_template, redirect, flash, url_for
 # from models import Navcard
 from flask_sqlalchemy import SQLAlchemy

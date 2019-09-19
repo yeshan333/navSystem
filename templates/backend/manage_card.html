@@ -19,13 +19,15 @@
             <td>{{ card.name }}</td>
             <td>{{ card.image }}</td>
             <td>{{ card.url }}</td>
-            <td><a href="{{ url_for('edit_card', card_id=card.id, next=request.full_path ) }}" class="layui-btn">编辑</a></td>
-            <td><form method="post"
-                action="{{ url_for('delete_card', card_id=card.id, next=request.full_path) }}">
-                <!-- <input type="hidden" name="csrf_token" value=" csrf_token()" /> -->
-                <button type="submit" class="layui-btn layui-btn-danger" onclick="return confirm('Are you sure?');">删除
-                </button>
-            </form>
+            <td><a href="{{ url_for('edit_card', card_id=card.id, next=request.full_path ) }}" class="layui-btn">编辑</a>
+            </td>
+            <td>
+                <form method="post" action="{{ url_for('delete_card', card_id=card.id, next=request.full_path) }}">
+                    <!-- <input type="hidden" name="csrf_token" value=" csrf_token()" /> -->
+                    <button type="submit" class="layui-btn layui-btn-danger"
+                        onclick="return confirm('Are you sure?');">删除
+                    </button>
+                </form>
             </td>
         </tr>
         {% endfor %}
