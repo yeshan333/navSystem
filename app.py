@@ -106,7 +106,7 @@ def edit_card(card_id):
 def generate():
     db.drop_all()
     db.create_all()
-    test_name = "磨削和"
+    test_name = "大美中国"
     test_url = "https://shan333.cn"
     test_image = "https://cdn.jsdelivr.net/gh/ssmath/mypic/img/20190919131205.jpg"
     for _ in range(5):
@@ -121,7 +121,8 @@ def initdb():
     db.create_all()
     click.echo('Initialized database.')
 
-
+# -------------------------------------------------------------------
+# 数据库模型
 # 导航卡片
 class Navcard(db.Model):
     id = db.Column(db.Integer, primary_key=True)  # 主键
