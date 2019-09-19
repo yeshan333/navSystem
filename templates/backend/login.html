@@ -25,25 +25,24 @@
 </head>
 
 <body>
-    <form class="layui-form" action="">
+    <form class="layui-form" method="post" action="{{ url_for('login') }}">
+        {{ form.csrf_token() }}
         <div class="layui-form-item">
             <h1>管理员你好</h1>
         </div>
         <div class="layui-form-item" style="text-align:center">
             <div class="layui-input-block">
-                <input type="text" name="username" placeholder="请输入账号" autocomplete="off" class="layui-input"
-                    autofocus="true" required>
+                {{ form.username(class='layui-input', placeholder="请输入用户名") }}
             </div>
         </div>
         <div class="layui-form-item" style="text-align:center">
             <div class="layui-input-block">
-                <input type="password" name="password" placeholder="请输入密码" autocomplete="off" class="layui-input"
-                    required>
+                {{ form.password(class='layui-input', placeholder="请输入密码") }}
             </div>
         </div>
         <div class="layui-form-item">
             <div class="layui-input-block">
-                <button class="layui-btn layui-btn-fluid" type="submit">登录</button>
+                {{ form.submit(class='layui-btn layui-btn-fluid') }}
             </div>
         </div>
     </form>

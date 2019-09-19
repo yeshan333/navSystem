@@ -11,7 +11,7 @@ Copyright (c) [2019] [name of copyright holder]
 from flask import Flask, render_template, redirect, flash, url_for
 # from models import Navcard
 from flask_sqlalchemy import SQLAlchemy
-from forms import NavcardForm
+from forms import NavcardForm, LoginForm
 import click
 from flask_bootstrap import Bootstrap
 
@@ -43,7 +43,10 @@ def admin():
 # 登录
 @app.route('/login', methods=['GET', 'POST'])
 def login():
-    return render_template('backend/login.html')
+    form = LoginForm()
+    if form.validate_on_submit():
+        return render_template('backend/main.html')    
+    return render_template('backend/login.html', form=form)
 
 # 测试
 @app.route('/test')
