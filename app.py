@@ -13,7 +13,7 @@ from werkzeug.security import generate_password_hash, check_password_hash
 # from models import Navcard
 from flask_sqlalchemy import SQLAlchemy
 
-from flask_login import UserMixin, current_user, login_user, LoginManager, logout_user
+from flask_login import UserMixin, current_user, login_user, LoginManager, logout_user, login_required
 
 from forms import NavcardForm, LoginForm
 import click
@@ -45,6 +45,7 @@ def about():
 
 # 
 @app.route('/admin')
+@login_required
 def admin():
     return render_template('backend/main.html')
 
@@ -74,6 +75,7 @@ def login():
 
 # 登出
 @app.route('/logout')
+@login_required
 def logout():
     logout_user()  # 登出用户
     print("登出成功")
@@ -86,6 +88,7 @@ def test():
     return render_template('frontend/card.html', cards=cards)
 
 @app.route('/card/new', methods=['GET', 'POST'])
+@login_required
 def new_card():
     # 新增卡片表单逻辑
     form = NavcardForm()
@@ -102,12 +105,14 @@ def new_card():
 
 # 卡片管理
 @app.route('/card/manage')
+@login_required
 def manage_card():
     cards = Navcard.query.all()
     return render_template('backend/manage_card.html', cards=cards)
 
 # 删除卡片
 @app.route('/card/<int:card_id>/delete', methods=['POST'])
+@login_required
 def delete_card(card_id):
     card = Navcard.query.get_or_404(card_id)
     db.session.delete(card)
@@ -116,6 +121,7 @@ def delete_card(card_id):
 
 # 卡片编辑
 @app.route('/card/<int:card_id>/edit', methods=['POST', 'GET'])
+@login_required
 def edit_card(card_id):
     form = NavcardForm()
     # 获取卡片对应id
