@@ -9,8 +9,12 @@ Copyright (c) [2019] [name of copyright holder]
 
 
 from flask import Flask, render_template, redirect, flash, url_for
+from werkzeug.security import generate_password_hash, check_password_hash
 # from models import Navcard
 from flask_sqlalchemy import SQLAlchemy
+
+from flask_login import UserMixin, current_user, login_user, LoginManager
+
 from forms import NavcardForm, LoginForm
 import click
 from flask_bootstrap import Bootstrap
@@ -21,7 +25,11 @@ app.config.from_pyfile('settings.py')
 
 db = SQLAlchemy(app)
 bootstrap = Bootstrap(app)
+login_manage = LoginManager(app)
 
+
+# ----------------------------------------------------------
+# 前台
 # 主页
 @app.route('/')
 def index():
@@ -43,9 +51,25 @@ def admin():
 # 登录
 @app.route('/login', methods=['GET', 'POST'])
 def login():
+    # 已经登录
+    if current_user.is_authenticated:
+        print("已经登录过")
+        return redirect(url_for('index'))
+    
     form = LoginForm()
     if form.validate_on_submit():
-        return render_template('backend/main.html')    
+        username = form.username.data
+        passwrod = form.password.data
+        
+        admin = Admin.query.first()
+        if admin:
+            if username == admin.username and admin.validate_password(passwrod):
+                login_user(admin) # 验证成功，登入账户
+                print('验证成功')
+                return redirect(url_for('admin'))
+            print("账号密码不正确")
+        else:
+            print("管理员不存在")    
     return render_template('backend/login.html', form=form)
 
 # 测试
@@ -124,6 +148,18 @@ def initdb():
     db.create_all()
     click.echo('Initialized database.')
 
+# 创建管理用户
+@app.cli.command()
+def initadmin():
+    db.drop_all()
+    db.create_all()
+    admin = Admin(username = "admin")
+    admin.set_password("helloworld")
+    db.session.add(admin)
+    db.session.commit()
+    print("创建用户成功")
+
+
 # -------------------------------------------------------------------
 # 数据库模型
 # 导航卡片
@@ -132,3 +168,24 @@ class Navcard(db.Model):
     name = db.Column(db.String(200))  # 网站名
     url = db.Column(db.String(255))  # 网站地址
     image = db.Column(db.String(200))  # 网站缩略图地址
+
+
+# UserMixin表示通过认证的用户
+class Admin(db.Model, UserMixin):
+    id = db.Column(db.Integer, primary_key=True)
+    username = db.Column(db.String(20))
+    password_hash = db.Column(db.String(128))
+
+    def set_password(self, password):
+        self.password_hash = generate_password_hash(password)  # 对密码进行hash编码
+    
+    def validate_password(self, password):
+        return check_password_hash(self.password_hash, password)
+
+
+# ----------------------------------------------------------
+# current.user的使用需要定义一个load函数
+@login_manage.user_loader
+def load_user(user_id):
+    user = Admin.query.get(int(user_id))
+    return user
