@@ -13,7 +13,7 @@ from werkzeug.security import generate_password_hash, check_password_hash
 # from models import Navcard
 from flask_sqlalchemy import SQLAlchemy
 
-from flask_login import UserMixin, current_user, login_user, LoginManager
+from flask_login import UserMixin, current_user, login_user, LoginManager, logout_user
 
 from forms import NavcardForm, LoginForm
 import click
@@ -71,6 +71,13 @@ def login():
         else:
             print("管理员不存在")    
     return render_template('backend/login.html', form=form)
+
+# 登出
+@app.route('/logout')
+def logout():
+    logout_user()  # 登出用户
+    print("登出成功")
+    return redirect(url_for('index'))
 
 # 测试
 @app.route('/test')
@@ -184,7 +191,7 @@ class Admin(db.Model, UserMixin):
 
 
 # ----------------------------------------------------------
-# current.user的使用需要定义一个load函数
+# current.user的使用需要先定义一个load函数
 @login_manage.user_loader
 def load_user(user_id):
     user = Admin.query.get(int(user_id))
