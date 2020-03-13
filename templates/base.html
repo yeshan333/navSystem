@@ -4,9 +4,11 @@
     {% block head %}
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
+    
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}"
+
     <!-- ZUI 标准版压缩后的 CSS 文件 -->
     <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/zui/1.9.1/css/zui.min.css">
-
     <!-- ZUI Javascript 依赖 jQuery -->
     <script src="//cdnjs.cloudflare.com/ajax/libs/zui/1.9.1/lib/jquery/jquery.js"></script>
     <!-- ZUI 标准版压缩后的 JavaScript 文件 -->
@@ -78,13 +80,21 @@
         {% endblock %}
     </main>
 
-    {% block scripts %}
-    <!-- 全局脚本 -->
+    {% block footer %}
+    <footer>
+        <p id="footer">
+            <small> &copy; 2019 <a href="https://shansan.top" title="Written by shansan">ShanSan</a> -
+                <a href="https://github.com/yeshan333" title="Fork me on GitHub">GitHub</a>
+            </small>
+        </p>
+    </footer>   
     {% endblock %}
 
 
 
-
+    {% block scripts %}
+    <!-- 全局脚本 -->
+    {% endblock %}
 </body>
 
 </html>

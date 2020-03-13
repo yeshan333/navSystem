@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 """
-Copyright (c) [2019] [name of copyright holder]
-   [navSystem] is licensed under the Mulan PSL v1.
+Copyright (c) 2019 yeshan333
+   navSystem is licensed under the Mulan PSL v1.
    @author: ShanSan
    @email: yeshan1329441308@gmail.com
    @License: See the Mulan PSL v1 for more details.
@@ -43,7 +43,7 @@ def about():
 # ----------------------------------------------------------
 # 后台
 
-# 
+#
 @app.route('/admin')
 @login_required
 def admin():
@@ -56,12 +56,12 @@ def login():
     if current_user.is_authenticated:
         print("已经登录过")
         return redirect(url_for('index'))
-    
+
     form = LoginForm()
     if form.validate_on_submit():
         username = form.username.data
         passwrod = form.password.data
-        
+
         admin = Admin.query.first()
         if admin:
             if username == admin.username and admin.validate_password(passwrod):
@@ -70,7 +70,7 @@ def login():
                 return redirect(url_for('admin'))
             print("账号密码不正确")
         else:
-            print("管理员不存在")    
+            print("管理员不存在")
     return render_template('backend/login.html', form=form)
 
 # 登出
@@ -87,6 +87,7 @@ def test():
     cards = Navcard.query.all()
     return render_template('frontend/card.html', cards=cards)
 
+# 新建卡片
 @app.route('/card/new', methods=['GET', 'POST'])
 @login_required
 def new_card():
@@ -191,7 +192,7 @@ class Admin(db.Model, UserMixin):
 
     def set_password(self, password):
         self.password_hash = generate_password_hash(password)  # 对密码进行hash编码
-    
+
     def validate_password(self, password):
         return check_password_hash(self.password_hash, password)
 
