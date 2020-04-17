@@ -2,6 +2,8 @@
 
 用于创新基地技术分享展示， PPT：https://slide.shan333.cn/slides/slide.html#/8/1
 
+基于 ZUI 和 Layui + Flask
+
 
 ```shell
 # 安装依赖
